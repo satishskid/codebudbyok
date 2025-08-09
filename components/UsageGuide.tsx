@@ -1,44 +1,50 @@
-import React from 'react';
+export function UsageGuide() {
+  return (
+    <div className="p-6 max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Using This Application Effectively</h2>
+      
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-2">Getting Started:</h3>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>The application remembers your settings between sessions</li>
+          <li>No need to re-enter information unless you switch devices</li>
+        </ul>
+      </div>
 
-const UsageGuide: React.FC = () => {
-    return (
-        <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Usage Guide & Cost Planning</h2>
-            <div className="space-y-4 text-gray-700">
-                <p>
-                    Code Buddy is designed to be extremely cost-effective by using your school's own Gemini API key. Here's how to plan your usage.
-                </p>
-                
-                <div className="p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
-                    <h3 className="font-bold">Understanding the Free Tier</h3>
-                    <p>
-                        Google's Gemini API has a generous free tier that is often more than enough for typical classroom use. This means your operational cost can be **zero**. The main limit to be aware of is the **requests per minute (RPM)**.
-                    </p>
-                </div>
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-2">Best Practices:</h3>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Keep the browser tab open during active use</li>
+          <li>Avoid using the back button during conversations</li>
+          <li>Save important information externally if needed</li>
+        </ul>
+      </div>
 
-                <div>
-                    <h3 className="text-lg font-semibold mt-4 mb-2">How many classes can use this per day?</h3>
-                    <p>
-                        A single API key can comfortably support **over 500+ individual student lessons per day** without hitting usage limits. A "lesson" is one student completing one topic in the curriculum. The cost per lesson is fractions of a cent.
-                    </p>
-                </div>
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-2">What to Expect:</h3>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Internet interruptions will pause responses</li>
+          <li>Refreshing may clear recent conversation history</li>
+          <li>Some features require an active internet connection</li>
+        </ul>
+      </div>
 
-                <div>
-                    <h3 className="text-lg font-semibold mt-4 mb-2">How many terminals can use one key?</h3>
-                     <p>
-                        You can use the same API key on multiple terminals. A classroom of **20-30 terminals** can run simultaneously on a single key because student interactions are naturally staggered, which helps avoid hitting the requests-per-minute limit.
-                    </p>
-                </div>
-                
-                 <div className="p-4 bg-green-50 border-l-4 border-green-400 rounded-r-lg">
-                    <h3 className="font-bold">Recommendation for Large Schools</h3>
-                    <p>
-                        If you have many computer labs, consider creating a few different Google accounts (e.g., one for Junior School, one for Senior School) to get **multiple free API keys**. Using a different key for each lab multiplies your free capacity and is the most cost-effective strategy.
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-};
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-2">Troubleshooting:</h3>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>If stuck, try refreshing the page</li>
+          <li>For persistent issues, close and reopen the application</li>
+          <li>Contact support if problems continue</li>
+        </ul>
+      </div>
 
-export default UsageGuide;
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-2">For Shared Computers:</h3>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Always log out when finished</li>
+          <li>Be aware others may see your previous activity</li>
+        </ul>
+      </div>
+    </div>
+  );
+}

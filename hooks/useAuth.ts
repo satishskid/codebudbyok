@@ -4,9 +4,20 @@ import { checkApiKeyHealth } from '../services/geminiService';
 
 const ADMIN_PASSWORD = 'Skidmin2025'; // Admin password for local admin view
 
+interface AuthState {
+  apiKey: string | null;
+  isAdmin: boolean;
+  terminalPassword: string | null;
+  isActivated: boolean;
+}
+
 export const useAuth = () => {
-  const [apiKey, setApiKey] = useState<string | null>(() => localStorage.getItem('gemini_api_key'));
-  const [isAdmin, setIsAdmin] = useState<boolean>(() => sessionStorage.getItem('is_admin') === 'true');
+  const [authState, setAuthState] = useState<AuthState>(() => ({
+    apiKey: localStorage.getItem('gemini_api_key'),
+    isAdmin: sessionStorage.getItem('is_admin') === 'true',
+    terminalPassword: localStorage.getItem('terminal_password'),
+    isActivated: localStorage.getItem('is_activated') === 'true'
+  }));
   const [keyStatus, setKeyStatus] = useState<KeyStatus>('checking');
 
   const verifyAndSetKeyStatus = useCallback(async (key: string | null) => {
@@ -34,23 +45,44 @@ export const useAuth = () => {
   }, []);
   
   useEffect(() => {
-    verifyAndSetKeyStatus(apiKey);
-  }, [apiKey, verifyAndSetKeyStatus]);
+    verifyAndSetKeyStatus(authState.apiKey);
+  }, [authState.apiKey, verifyAndSetKeyStatus]);
 
-  const login = useCallback((key: string, adminPass?: string) => {
-    localStorage.setItem('gemini_api_key', key);
-    setApiKey(key);
-    if (adminPass === ADMIN_PASSWORD) {
-        sessionStorage.setItem('is_admin', 'true');
-        setIsAdmin(true);
+  const login = useCallback((key: string, password?: string, isAdminLogin?: boolean) => {
+    if (isAdminLogin && password === ADMIN_PASSWORD) {
+      // Admin login flow
+      localStorage.setItem('gemini_api_key', key);
+      sessionStorage.setItem('is_admin', 'true');
+      localStorage.setItem('is_activated', 'true');
+      setAuthState(prev => ({
+        ...prev,
+        apiKey: key,
+        isAdmin: true,
+        isActivated: true
+      }));
+    } else if (authState.isActivated && password === authState.terminalPassword) {
+      // Teacher login flow
+      setAuthState(prev => ({
+        ...prev,
+        isAdmin: false
+      }));
     }
-  }, []);
+  }, [authState.isActivated, authState.terminalPassword]);
 
   const logout = useCallback(() => {
-    localStorage.removeItem('gemini_api_key');
     sessionStorage.removeItem('is_admin');
-    setApiKey(null);
-    setIsAdmin(false);
+    setAuthState(prev => ({
+      ...prev,
+      isAdmin: false
+    }));
+  }, []);
+
+  const setTerminalPassword = useCallback((password: string) => {
+    localStorage.setItem('terminal_password', password);
+    setAuthState(prev => ({
+      ...prev,
+      terminalPassword: password
+    }));
   }, []);
   
   const recheckKeyHealth = useCallback(() => {
@@ -58,5 +90,12 @@ export const useAuth = () => {
   }, [apiKey, verifyAndSetKeyStatus]);
 
 
-  return { apiKey, isAdmin, keyStatus, login, logout, recheckKeyHealth };
+  return { 
+  authState,
+  keyStatus, 
+  login, 
+  logout, 
+  recheckKeyHealth,
+  setTerminalPassword
+};
 };

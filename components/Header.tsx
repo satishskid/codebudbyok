@@ -12,10 +12,16 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ apiKey, isAdmin, onLogout, onGoHome }) => {
   return (
     <header className="flex items-center justify-between p-4 bg-white shadow-md z-10 flex-shrink-0">
-      <div className="flex items-center">
-        <SparklesIcon className="w-10 h-10 text-indigo-500 mr-4" />
+      <div className="flex items-center space-x-4">
+        <img 
+          src="/skids-logo.svg" 
+          alt="SKIDS Logo" 
+          className="h-10 w-auto" 
+        />
+        <SparklesIcon className="w-10 h-10 text-indigo-500" />
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Code Buddy</h1>
+          <p className="text-xs text-gray-500">Powered by greybrain.ai</p>
         </div>
       </div>
       

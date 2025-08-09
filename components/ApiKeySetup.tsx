@@ -5,19 +5,31 @@ import { KeyStatus } from '../types';
 import UsageGuide from './UsageGuide';
 
 interface ApiKeySetupProps {
-  onApiKeySubmit: (key: string, adminPass?: string) => void;
+  onApiKeySubmit: (key: string, password?: string, isAdminLogin?: boolean) => void;
+  onTerminalPasswordSet: (password: string) => void;
+  isActivated: boolean;
 }
 
-const ApiKeySetup: React.FC<ApiKeySetupProps> = ({ onApiKeySubmit }) => {
+const ApiKeySetup: React.FC<ApiKeySetupProps> = ({ 
+  onApiKeySubmit, 
+  onTerminalPasswordSet,
+  isActivated 
+}) => {
   const [apiKey, setApiKey] = useState('');
-  const [adminPass, setAdminPass] = useState('');
-  const [showAdminField, setShowAdminField] = useState(false);
+  const [password, setPassword] = useState('');
+  const [terminalPassword, setTerminalPassword] = useState('');
+  const [isAdminLogin, setIsAdminLogin] = useState(!isActivated);
   const [showGuide, setShowGuide] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (apiKey.trim()) {
-      onApiKeySubmit(apiKey.trim(), adminPass.trim() || undefined);
+    if (isAdminLogin && apiKey.trim()) {
+      onApiKeySubmit(apiKey.trim(), password.trim(), true);
+      if (terminalPassword) {
+        onTerminalPasswordSet(terminalPassword);
+      }
+    } else if (!isAdminLogin && password.trim()) {
+      onApiKeySubmit('', password.trim(), false);
     }
   };
 
@@ -46,40 +58,64 @@ const ApiKeySetup: React.FC<ApiKeySetupProps> = ({ onApiKeySubmit }) => {
             />
           </div>
 
-          <div className="flex items-center">
-            <input
-              id="adminCheck"
-              type="checkbox"
-              checked={showAdminField}
-              onChange={() => setShowAdminField(!showAdminField)}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-            />
-            <label htmlFor="adminCheck" className="ml-2 block text-sm text-gray-700">
-              I'm an administrator
-            </label>
-          </div>
-
-          {showAdminField && (
+          {isAdminLogin ? (
+          <>
             <div>
               <label htmlFor="adminPass" className="block text-sm font-medium text-gray-700 mb-1">Admin Password</label>
               <input
                 id="adminPass"
                 type="password"
-                value={adminPass}
-                onChange={(e) => setAdminPass(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                 placeholder="Enter admin password"
+                required
               />
             </div>
-          )}
+            <div>
+              <label htmlFor="terminalPass" className="block text-sm font-medium text-gray-700 mb-1">Set Terminal Password</label>
+              <input
+                id="terminalPass"
+                type="password"
+                value={terminalPassword}
+                onChange={(e) => setTerminalPassword(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                placeholder="Create password for teachers"
+                required
+              />
+            </div>
+          </>
+        ) : (
+          <div>
+            <label htmlFor="teacherPass" className="block text-sm font-medium text-gray-700 mb-1">Terminal Password</label>
+            <input
+              id="teacherPass"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              placeholder="Enter terminal password"
+              required
+            />
+          </div>
+        )}
 
           <button
             type="submit"
-            disabled={!apiKey.trim()}
+            disabled={isAdminLogin ? !apiKey.trim() || !password.trim() : !password.trim()}
             className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow transition-colors disabled:bg-indigo-300 disabled:cursor-not-allowed"
           >
-            Start Learning
+            {isAdminLogin ? 'Activate Terminal' : 'Start Teaching'}
           </button>
+          {isActivated && (
+            <button
+              type="button"
+              onClick={() => setIsAdminLogin(!isAdminLogin)}
+              className="mt-2 w-full py-3 px-4 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg shadow transition-colors"
+            >
+              {isAdminLogin ? 'Switch to Teacher Login' : 'Switch to Admin Login'}
+            </button>
+          )}
         </form>
 
         <div className="mt-6 pt-6 border-t border-gray-200">
