@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { SparklesIcon, ExclamationTriangleIcon, ClockIcon } from './icons';
 import { KeyStatus } from '../types';
-import UsageGuide from './UsageGuide';
+import { UsageGuide } from './UsageGuide';
 
 interface ApiKeySetupProps {
   onApiKeySubmit: (key: string, password?: string, isAdminLogin?: boolean) => void;
