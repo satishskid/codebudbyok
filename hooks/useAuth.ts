@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { KeyStatus } from '../types';
 import { checkApiKeyHealth } from '../services/geminiService';
 
-const ADMIN_PASSWORD = 'admin'; // Simple password for local admin view
+const ADMIN_PASSWORD = 'Skidmin2025'; // Admin password for local admin view
 
 export const useAuth = () => {
   const [apiKey, setApiKey] = useState<string | null>(() => localStorage.getItem('gemini_api_key'));
