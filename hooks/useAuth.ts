@@ -86,8 +86,8 @@ export const useAuth = () => {
   }, []);
   
   const recheckKeyHealth = useCallback(() => {
-    verifyAndSetKeyStatus(apiKey);
-  }, [apiKey, verifyAndSetKeyStatus]);
+    verifyAndSetKeyStatus(authState.apiKey);
+  }, [authState.apiKey, verifyAndSetKeyStatus]);
 
 
   return { 
