@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Buddy - Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4f46e5;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .doc-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #4f46e5;
+        }
+        .doc-card h3 {
+            color: #1f2937;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        .doc-card p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+        .doc-type {
+            display: inline-block;
+            background: #4f46e5;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .presentation-highlight {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+        }
+        .presentation-highlight h3 {
+            color: white;
+        }
+        .presentation-highlight p {
+            color: rgba(255,255,255,0.9);
+        }
+        .presentation-highlight .doc-type {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .features {
+            background: #f0f9ff;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        .features h2 {
+            color: #0369a1;
+            margin-top: 0;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .feature-icon {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Code Buddy</h1>
+        <p class="subtitle">AI-Powered Programming Tutor for Indian Students</p>
+        
+        <div class="features">
+            <h2>✨ Key Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <span class="feature-icon">🤖</span>
+                    <span>AI-Powered Tutoring</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <span>Grade-Specific Curriculum</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <span>Multi-Language Support</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💻</span>
+                    <span>Live Code Execution</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🏏</span>
+                    <span>Indian Cultural Context</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <span>Works on Any Device</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="docs-grid">
+            <a href="CodeBuddy_User_Guide_Slides.html" class="doc-card presentation-highlight">
+                <h3>📊 Interactive Presentation</h3>
+                <p>Beautiful slide presentation with navigation controls. Perfect for training sessions and demonstrations.</p>
+                <span class="doc-type">HTML Slides</span>
+            </a>
+
+            <a href="CodeBuddy_User_Guide.pptx" class="doc-card" download>
+                <h3>📋 PowerPoint Presentation</h3>
+                <p>Download the complete user guide as a PowerPoint presentation (73KB). Great for offline viewing and customization.</p>
+                <span class="doc-type">PPTX Download</span>
+            </a>
+
+            <a href="USER_MANUAL.md" class="doc-card">
+                <h3>📖 Complete User Manual</h3>
+                <p>Comprehensive guide for administrators, teachers, and students. Includes troubleshooting and FAQ sections.</p>
+                <span class="doc-type">Markdown</span>
+            </a>
+
+            <a href="DEVELOPER_MANUAL.md" class="doc-card">
+                <h3>⚙️ Developer Manual</h3>
+                <p>Technical documentation for developers. Architecture, APIs, deployment, and contribution guidelines.</p>
+                <span class="doc-type">Technical</span>
+            </a>
+
+            <a href="API.md" class="doc-card">
+                <h3>🔌 API Documentation</h3>
+                <p>Detailed API reference, service integration, data models, and security considerations.</p>
+                <span class="doc-type">API Reference</span>
+            </a>
+
+            <a href="DEPLOYMENT.md" class="doc-card">
+                <h3>🚀 Deployment Guide</h3>
+                <p>Step-by-step deployment instructions for Netlify, Vercel, and custom servers. Includes monitoring setup.</p>
+                <span class="doc-type">DevOps</span>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #e2e8f0;">
+            <p style="color: #6b7280;">
+                Made with ❤️ for Indian students by <strong>GreyBrain.ai</strong>
+            </p>
+            <p style="color: #9ca3af; font-size: 0.9em;">
+                Repository: <a href="https://github.com/satishskid/codebudbyok" style="color: #4f46e5;">github.com/satishskid/codebudbyok</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
