@@ -7,13 +7,13 @@ import { useAuth } from './hooks/useAuth';
 
 const App: React.FC = () => {
   const { 
-  authState: { apiKey, isAdmin, isActivated },
-  keyStatus, 
-  login, 
-  logout, 
-  recheckKeyHealth,
-  setTerminalPassword
-} = useAuth();
+    authState: { apiKey, isAdmin, isActivated },
+    keyStatus, 
+    adminLogin,
+    teacherLogin,
+    logout, 
+    recheckKeyHealth
+  } = useAuth();
   const [view, setView] = useState<'home' | 'chat' | 'admin'>('home');
 
   const handleGoHome = () => {
@@ -23,8 +23,8 @@ const App: React.FC = () => {
   const renderContent = () => {
     if (!isActivated || !apiKey) {
       return <ApiKeySetup 
-        onApiKeySubmit={login}
-        onTerminalPasswordSet={setTerminalPassword}
+        onAdminLogin={adminLogin}
+        onTeacherLogin={teacherLogin}
         isActivated={isActivated}
       />;
     }

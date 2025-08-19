@@ -31,11 +31,9 @@ export const useAuth = () => {
       if (isHealthy) {
         setKeyStatus('healthy');
       } else {
-        // This case usually means the key is invalid or permissions are wrong
         setKeyStatus('invalid');
       }
     } catch (e: any) {
-        // This could be a network error or a rate limit error
         if (e.message.includes('429')) {
              setKeyStatus('throttled');
         } else {
@@ -48,25 +46,33 @@ export const useAuth = () => {
     verifyAndSetKeyStatus(authState.apiKey);
   }, [authState.apiKey, verifyAndSetKeyStatus]);
 
-  const login = useCallback((key: string, password?: string, isAdminLogin?: boolean) => {
-    if (isAdminLogin && password === ADMIN_PASSWORD) {
-      // Admin login flow
+  const adminLogin = useCallback((key: string, password: string, terminalPassword: string) => {
+    if (password === ADMIN_PASSWORD) {
       localStorage.setItem('gemini_api_key', key);
-      sessionStorage.setItem('is_admin', 'true');
+      localStorage.setItem('terminal_password', terminalPassword);
       localStorage.setItem('is_activated', 'true');
-      setAuthState(prev => ({
-        ...prev,
+      sessionStorage.setItem('is_admin', 'true');
+      setAuthState({
         apiKey: key,
         isAdmin: true,
+        terminalPassword: terminalPassword,
         isActivated: true
-      }));
-    } else if (authState.isActivated && password === authState.terminalPassword) {
-      // Teacher login flow
+      });
+      return true;
+    }
+    return false;
+  }, []);
+
+  const teacherLogin = useCallback((password: string) => {
+    if (authState.isActivated && password === authState.terminalPassword) {
+      sessionStorage.removeItem('is_admin');
       setAuthState(prev => ({
         ...prev,
         isAdmin: false
       }));
+      return true;
     }
+    return false;
   }, [authState.isActivated, authState.terminalPassword]);
 
   const logout = useCallback(() => {
@@ -76,26 +82,17 @@ export const useAuth = () => {
       isAdmin: false
     }));
   }, []);
-
-  const setTerminalPassword = useCallback((password: string) => {
-    localStorage.setItem('terminal_password', password);
-    setAuthState(prev => ({
-      ...prev,
-      terminalPassword: password
-    }));
-  }, []);
   
   const recheckKeyHealth = useCallback(() => {
     verifyAndSetKeyStatus(authState.apiKey);
   }, [authState.apiKey, verifyAndSetKeyStatus]);
 
-
   return { 
-  authState,
-  keyStatus, 
-  login, 
-  logout, 
-  recheckKeyHealth,
-  setTerminalPassword
-};
+    authState,
+    keyStatus, 
+    adminLogin,
+    teacherLogin,
+    logout, 
+    recheckKeyHealth
+  };
 };
