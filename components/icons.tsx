@@ -100,3 +100,38 @@ export const BuildingOfficeIcon: React.FC<IconProps> = ({ className }) => (
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15l-.75 18h-13.5L4.5 3ZM7.5 6h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H12m-1.5 3H12m-1.5 3H12m3-6h1.5m-1.5 3h1.5m-1.5 3h1.5M9 21v-7.5a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75V21" />
   </svg>
 );
+
+export const SkidsLogoIcon: React.FC<IconProps> = ({ className }) => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    {/* Background circle */}
+    <circle cx="20" cy="20" r="20" fill="#4F46E5"/>
+    
+    {/* SKIDS text stylized */}
+    <g transform="translate(6, 14)">
+      {/* S */}
+      <path d="M2 3C2 1.5 3 0.5 4.5 0.5C6 0.5 7 1.5 7 3C7 4 6.5 4.5 5.5 4.5H3.5C2.5 4.5 2 5 2 6C2 7 2.5 7.5 4.5 7.5H7" 
+            stroke="white" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+      
+      {/* K */}
+      <path d="M9 0.5V7.5M9 4L12 0.5M9 4L12 7.5" 
+            stroke="white" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+      
+      {/* I */}
+      <path d="M14 0.5V7.5M13.2 0.5H14.8M13.2 7.5H14.8" 
+            stroke="white" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+      
+      {/* D */}
+      <path d="M16.5 0.5V7.5H19C20 7.5 20.5 7 20.5 6V2C20.5 1 20 0.5 19 0.5H16.5Z" 
+            stroke="white" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+      
+      {/* S */}
+      <path d="M22 3C22 1.5 23 0.5 24.5 0.5C26 0.5 27 1.5 27 3C27 4 26.5 4.5 25.5 4.5H23.5C22.5 4.5 22 5 22 6C22 7 22.5 7.5 24.5 7.5H27" 
+            stroke="white" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+    </g>
+    
+    {/* Decorative elements */}
+    <circle cx="32" cy="8" r="1.5" fill="white" opacity="0.3"/>
+    <circle cx="8" cy="32" r="1" fill="white" opacity="0.2"/>
+    <circle cx="35" cy="35" r="0.8" fill="white" opacity="0.4"/>
+  </svg>
+);
