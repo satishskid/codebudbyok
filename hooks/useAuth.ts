@@ -8,6 +8,7 @@ interface AuthState {
   apiKey: string | null;
   isAdmin: boolean;
   terminalPassword: string | null;
+  terminalName: string | null;
   isActivated: boolean;
 }
 
@@ -16,6 +17,7 @@ export const useAuth = () => {
     apiKey: localStorage.getItem('gemini_api_key'),
     isAdmin: sessionStorage.getItem('is_admin') === 'true',
     terminalPassword: localStorage.getItem('terminal_password'),
+    terminalName: localStorage.getItem('terminal_name'),
     isActivated: localStorage.getItem('is_activated') === 'true'
   }));
   const [keyStatus, setKeyStatus] = useState<KeyStatus>('checking');
@@ -46,16 +48,18 @@ export const useAuth = () => {
     verifyAndSetKeyStatus(authState.apiKey);
   }, [authState.apiKey, verifyAndSetKeyStatus]);
 
-  const adminLogin = useCallback((key: string, password: string, terminalPassword: string) => {
+  const adminSetup = useCallback((key: string, password: string, terminalName: string, terminalPassword: string) => {
     if (password === ADMIN_PASSWORD) {
       localStorage.setItem('gemini_api_key', key);
       localStorage.setItem('terminal_password', terminalPassword);
+      localStorage.setItem('terminal_name', terminalName);
       localStorage.setItem('is_activated', 'true');
       sessionStorage.setItem('is_admin', 'true');
       setAuthState({
         apiKey: key,
         isAdmin: true,
         terminalPassword: terminalPassword,
+        terminalName: terminalName,
         isActivated: true
       });
       return true;
@@ -87,12 +91,29 @@ export const useAuth = () => {
     verifyAndSetKeyStatus(authState.apiKey);
   }, [authState.apiKey, verifyAndSetKeyStatus]);
 
+  // Reset system (for development/testing - remove in production)
+  const resetSystem = useCallback(() => {
+    localStorage.removeItem('gemini_api_key');
+    localStorage.removeItem('terminal_password');
+    localStorage.removeItem('terminal_name');
+    localStorage.removeItem('is_activated');
+    sessionStorage.removeItem('is_admin');
+    setAuthState({
+      apiKey: null,
+      isAdmin: false,
+      terminalPassword: null,
+      terminalName: null,
+      isActivated: false
+    });
+  }, []);
+
   return { 
     authState,
     keyStatus, 
-    adminLogin,
+    adminSetup,
     teacherLogin,
     logout, 
-    recheckKeyHealth
+    recheckKeyHealth,
+    resetSystem
   };
 };
